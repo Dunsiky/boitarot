@@ -1,690 +1,124 @@
-// Dữ liệu đầy đủ 78 lá bài Tarot
-const tarotCards = [
-    // Major Arcana (22 lá)
-    {
-        id: 0,
-        name: "The Fool",
-        namevi: "Kẻ Ngốc",
-        symbol: "🃏",
-        suit: "Major Arcana",
-        upright: "Khởi đầu mới, phiêu lưu, tự do, tiềm năng vô hạn, sự ngây thơ",
-        reversed: "Do dự, liều lĩnh, thiếu định hướng, hành động thiếu suy nghĩ",
-        meaning: "Bạn đang đứng trước một khởi đầu mới đầy tiềm năng. Hãy tin tưởng vào hành trình phía trước và đừng sợ bước ra khỏi vùng an toàn.",
-        advice: "Hãy dũng cảm bước vào cuộc phiêu lưu mới, nhưng cũng cần chuẩn bị kỹ lưỡng."
-    },
-    {
-        id: 1,
-        name: "The Magician",
-        namevi: "Pháp Sư",
-        symbol: "🎩",
-        suit: "Major Arcana",
-        upright: "Biểu hiện, sức mạnh ý chí, kỹ năng, tập trung, hành động",
-        reversed: "Thao túng, lãng phí tài năng, thiếu định hướng, lừa dối",
-        meaning: "Bạn có tất cả các công cụ và kỹ năng cần thiết để thành công. Đây là lúc để biến ý tưởng thành hiện thực.",
-        advice: "Tập trung vào mục tiêu và sử dụng tất cả khả năng của bạn để đạt được điều mong muốn."
-    },
-    {
-        id: 2,
-        name: "The High Priestess",
-        namevi: "Nữ Tư Tế",
-        symbol: "🌙",
-        suit: "Major Arcana",
-        upright: "Trực giác, bí ẩn, tiềm thức, hiểu biết sâu sắc, nữ tính thiêng liêng",
-        reversed: "Bí mật, nhầm lẫn, trực giác bị cản trở, thiếu kết nối nội tâm",
-        meaning: "Hãy tin vào trực giác và sự hiểu biết bên trong. Câu trả lời bạn tìm kiếm nằm trong tâm hồn bạn.",
-        advice: "Dành thời gian thiền định và lắng nghe tiếng nói nội tâm. Đừng vội vàng đưa ra quyết định."
-    },
-    {
-        id: 3,
-        name: "The Empress",
-        namevi: "Nữ Hoàng",
-        symbol: "👑",
-        suit: "Major Arcana",
-        upright: "Sinh sản, sáng tạo, nuôi dưỡng, phong phú, mẹ thiên nhiên",
-        reversed: "Phụ thuộc, thiếu sáng tạo, bỏ bê, mất cân bằng",
-        meaning: "Thời gian của sự phong phú và sáng tạo. Hãy nuôi dưỡng những gì quan trọng với bạn và để tình yêu thương lan tỏa.",
-        advice: "Hãy chăm sóc bản thân và những người xung quanh. Sự sáng tạo sẽ mang lại thành quả tốt đẹp."
-    },
-    {
-        id: 4,
-        name: "The Emperor",
-        namevi: "Hoàng Đế",
-        symbol: "⚔️",
-        suit: "Major Arcana",
-        upright: "Quyền lực, lãnh đạo, ổn định, kỷ luật, bảo vệ",
-        reversed: "Chuyên chế, thiếu kiểm soát, cứng nhắc, lạm dụng quyền lực",
-        meaning: "Hãy thể hiện sự lãnh đạo và kiểm soát tình hình. Kỷ luật và trật tự sẽ dẫn đến thành công.",
-        advice: "Đưa ra quyết định dứt khoát và chịu trách nhiệm về hành động của mình."
-    },
-    {
-        id: 5,
-        name: "The Hierophant",
-        namevi: "Giáo Hoàng",
-        symbol: "⛪",
-        suit: "Major Arcana",
-        upright: "Truyền thống, hướng dẫn tâm linh, học hỏi, tôn giáo, đạo đức",
-        reversed: "Nổi loạn, thách thức quyền lực, phá vỡ truyền thống, tự do cá nhân",
-        meaning: "Tìm kiếm sự hướng dẫn từ những người có kinh nghiệm. Truyền thống và giá trị đạo đức có thể mang lại trí tuệ.",
-        advice: "Hãy học hỏi từ những bài học của quá khứ và tìm kiếm sự hướng dẫn từ những người thầy."
-    },
-    {
-        id: 6,
-        name: "The Lovers",
-        namevi: "Đôi Tình Nhân",
-        symbol: "💕",
-        suit: "Major Arcana",
-        upright: "Tình yêu, hài hòa, lựa chọn quan trọng, đối tác, sự kết hợp",
-        reversed: "Bất hòa, mất cân bằng, giá trị không phù hợp, chia ly",
-        meaning: "Tình yêu và sự hài hòa đang đến với bạn. Một lựa chọn quan trọng về mối quan hệ cần được đưa ra.",
-        advice: "Hãy đưa ra lựa chọn từ trái tim và tìm kiếm sự cân bằng trong các mối quan hệ."
-    },
-    {
-        id: 7,
-        name: "The Chariot",
-        namevi: "Cỗ Xe",
-        symbol: "🏇",
-        suit: "Major Arcana",
-        upright: "Thành công, kiểm soát, quyết tâm, chiến thắng, tiến bộ",
-        reversed: "Thiếu định hướng, nghi ngờ bản thân, liều lĩnh, mất kiểm soát",
-        meaning: "Chiến thắng đang chờ đón bạn. Hãy kiểm soát tình hình và tiến về phía trước với quyết tâm.",
-        advice: "Tập trung vào mục tiêu và không để bất cứ điều gì cản trở con đường của bạn."
-    },
-    {
-        id: 8,
-        name: "Strength",
-        namevi: "Sức Mạnh",
-        symbol: "🦁",
-        suit: "Major Arcana",
-        upright: "Can đảm, sức mạnh nội tâm, kiên nhẫn, lòng từ bi, tự tin",
-        reversed: "Nghi ngờ bản thân, yếu đuối, sợ hãi, thiếu tự tin",
-        meaning: "Sức mạnh thật sự đến từ bên trong. Hãy kiên nhẫn và dịu dàng nhưng kiên định trong hành động.",
-        advice: "Sử dụng lòng từ bi và sự kiên nhẫn để vượt qua thử thách thay vì dùng vũ lực."
-    },
-    {
-        id: 9,
-        name: "The Hermit",
-        namevi: "Ẩn Sĩ",
-        symbol: "🕯️",
-        suit: "Major Arcana",
-        upright: "Trí tuệ, cô đơn, tự soi xét, hướng dẫn nội tâm, tìm kiếm",
-        reversed: "Cô lập, cô đơn, mất kết nối, từ chối lời khuyên",
-        meaning: "Thời gian để tự soi xét và tìm kiếm trí tuệ bên trong. Hãy dành thời gian một mình để hiểu rõ bản thân.",
-        advice: "Rút lui khỏi thế giới bên ngoài một thời gian để tìm kiếm câu trả lời từ bên trong."
-    },
-    {
-        id: 10,
-        name: "Wheel of Fortune",
-        namevi: "Bánh Xe Vận Mệnh",
-        symbol: "☸️",
-        suit: "Major Arcana",
-        upright: "May mắn, số phận, thay đổi, chu kỳ, cơ hội",
-        reversed: "Kháng cự thay đổi, vận xui, mất kiểm soát, nghiệp xấu",
-        meaning: "Vận mệnh đang xoay chuyển theo hướng tích cực. Hãy sẵn sàng cho những thay đổi và cơ hội mới.",
-        advice: "Chấp nhận những thay đổi trong cuộc sống và tận dụng cơ hội khi nó đến."
-    },
-    {
-        id: 11,
-        name: "Justice",
-        namevi: "Công Lý",
-        symbol: "⚖️",
-        suit: "Major Arcana",
-        upright: "Công bằng, sự thật, luật pháp, cân bằng, trách nhiệm",
-        reversed: "Bất công, không trung thực, thiếu trách nhiệm, thiên vị",
-        meaning: "Công lý sẽ được thực thi. Hãy hành động với sự trung thực và công bằng trong mọi việc.",
-        advice: "Đưa ra quyết định dựa trên sự thật và công bằng. Hãy chịu trách nhiệm về hành động của mình."
-    },
-    {
-        id: 12,
-        name: "The Hanged Man",
-        namevi: "Người Bị Treo",
-        symbol: "🙃",
-        suit: "Major Arcana",
-        upright: "Buông bỏ, góc nhìn mới, chờ đợi, hy sinh, tạm dừng",
-        reversed: "Trì trệ, kháng cự, không muốn thay đổi, ích kỷ",
-        meaning: "Đôi khi cần phải dừng lại và nhìn mọi thứ từ góc độ khác. Hãy kiên nhẫn và chờ đợi thời cơ.",
-        advice: "Buông bỏ những gì không thể kiểm soát và tìm kiếm góc nhìn mới cho vấn đề."
-    },
-    {
-        id: 13,
-        name: "Death",
-        namevi: "Cái Chết",
-        symbol: "💀",
-        suit: "Major Arcana",
-        upright: "Biến đổi, kết thúc, khởi đầu mới, tái sinh, thay đổi",
-        reversed: "Sợ thay đổi, trì trệ, kháng cự, không thể buông bỏ",
-        meaning: "Một giai đoạn đang kết thúc để nhường chỗ cho điều gì đó tốt đẹp hơn. Đừng sợ thay đổi.",
-        advice: "Chấp nhận sự kết thúc và chuẩn bị cho khởi đầu mới. Thay đổi là cần thiết cho sự phát triển."
-    },
-    {
-        id: 14,
-        name: "Temperance",
-        namevi: "Tiết Độ",
-        symbol: "🧘",
-        suit: "Major Arcana",
-        upright: "Cân bằng, điều độ, hòa hợp, kiên nhẫn, hòa giải",
-        reversed: "Mất cân bằng, thái quá, thiếu kiên nhẫn, xung đột",
-        meaning: "Hãy tìm kiếm sự cân bằng trong cuộc sống. Điều độ và kiên nhẫn sẽ mang lại hòa bình.",
-        advice: "Tránh cực đoan và tìm kiếm con đường trung dung trong mọi việc."
-    },
-    {
-        id: 15,
-        name: "The Devil",
-        namevi: "Ác Quỷ",
-        symbol: "😈",
-        suit: "Major Arcana",
-        upright: "Cám dỗ, nghiện, ràng buộc, dục vọng, tối tăm",
-        reversed: "Giải thoát, nhận thức, phá vỡ xiềng xích, tự do",
-        meaning: "Hãy nhận ra những gì đang ràng buộc bạn. Bạn có sức mạnh để giải thoát bản thân khỏi những thói quen xấu.",
-        advice: "Đối mặt với những cám dỗ và tìm cách giải thoát khỏi những gì đang kiểm soát bạn."
-    },
-    {
-        id: 16,
-        name: "The Tower",
-        namevi: "Tháp",
-        symbol: "🗼",
-        suit: "Major Arcana",
-        upright: "Thay đổi đột ngột, sự hỗn loạn, mặc khải, phá hủy, giải thoát",
-        reversed: "Tránh thay đổi, sợ hãi, kháng cự, thảm họa cá nhân",
-        meaning: "Một sự thay đổi đột ngột sẽ phá vỡ những gì cũ kỹ. Hãy chấp nhận và xây dựng lại từ đầu.",
-        advice: "Đừng cố gắng giữ lại những gì đã lỗi thời. Hãy chuẩn bị cho sự thay đổi lớn."
-    },
-    {
-        id: 17,
-        name: "The Star",
-        namevi: "Ngôi Sao",
-        symbol: "⭐",
-        suit: "Major Arcana",
-        upright: "Hy vọng, cảm hứng, chữa lành, hướng dẫn, tâm linh",
-        reversed: "Thiếu niềm tin, tuyệt vọng, mất định hướng, thiếu cảm hứng",
-        meaning: "Hy vọng và cảm hứng đang đến với bạn. Hãy tin vào tương lai tươi sáng và theo đuổi ước mơ.",
-        advice: "Giữ vững niềm tin và hy vọng. Những điều tốt đẹp đang chờ đón bạn."
-    },
-    {
-        id: 18,
-        name: "The Moon",
-        namevi: "Mặt Trăng",
-        symbol: "🌙",
-        suit: "Major Arcana",
-        upright: "Ảo tưởng, trực giác, lo lắng, tiềm thức, bí ẩn",
-        reversed: "Sự lo lắng, lừa dối, nhầm lẫn, sợ hãi",
-        meaning: "Mọi thứ có thể không như vẻ bề ngoài. Hãy tin vào trực giác và cẩn thận với những ảo tưởng.",
-        advice: "Đừng để nỗi sợ và lo lắng chi phối. Hãy tìm kiếm sự thật đằng sau những ảo tưởng."
-    },
-    {
-        id: 19,
-        name: "The Sun",
-        namevi: "Mặt Trời",
-        symbol: "☀️",
-        suit: "Major Arcana",
-        upright: "Thành công, niềm vui, sức sống, tích cực, thành tựu",
-        reversed: "Buồn bã, mục tiêu không thực tế, thiếu nhiệt huyết",
-        meaning: "Niềm vui và thành công đang tỏa sáng trong cuộc sống bạn. Hãy tận hưởng khoảnh khắc hạnh phúc này.",
-        advice: "Chia sẻ niềm vui với những người xung quanh và tận hưởng thành quả của mình."
-    },
-    {
-        id: 20,
-        name: "Judgement",
-        namevi: "Phán Xét",
-        symbol: "📯",
-        suit: "Major Arcana",
-        upright: "Thức tỉnh, đổi mới, tha thứ, tái sinh, kêu gọi cao cả",
-        reversed: "Nghi ngờ bản thân, tránh thay đổi, thiếu tha thứ",
-        meaning: "Thời gian để đánh giá lại và đổi mới bản thân. Hãy tha thứ cho quá khứ và tiến về phía trước.",
-        advice: "Lắng nghe tiếng gọi nội tâm và chuẩn bị cho một giai đoạn mới trong cuộc sống."
-    },
-    {
-        id: 21,
-        name: "The World",
-        namevi: "Thế Giới",
-        symbol: "🌍",
-        suit: "Major Arcana",
-        upright: "Hoàn thành, thành tựu, toàn vẹn, chu kỳ hoàn tất",
-        reversed: "Thiếu hoàn thành, trì trệ, mục tiêu chưa đạt được",
-        meaning: "Bạn đã đạt được một mục tiêu quan trọng. Hãy tự hào về thành tựu và chuẩn bị cho chu kỳ mới.",
-        advice: "Tận hưởng thành công và chuẩn bị cho những thử thách mới sắp tới."
-    },
+// Thuật toán Fisher-Yates shuffle - đảm bảo ngẫu nhiên hoàn toàn
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
 
-    // Minor Arcana - Wands (Gậy) - 14 lá
-    {
-        id: 22,
-        name: "Ace of Wands",
-        namevi: "Át Gậy",
-        symbol: "🔥",
-        suit: "Wands",
-        upright: "Cảm hứng mới, cơ hội sáng tạo, năng lượng, tiềm năng",
-        reversed: "Thiếu định hướng, trì hoãn, năng lượng bị cản trở",
-        meaning: "Một cơ hội mới đầy cảm hứng đang xuất hiện. Hãy nắm bắt và hành động ngay.",
-        advice: "Đừng để cơ hội trôi qua. Hãy hành động khi cảm hứng còn mạnh mẽ."
-    },
-    {
-        id: 23,
-        name: "Two of Wands",
-        namevi: "Hai Gậy",
-        symbol: "🗺️",
-        suit: "Wands",
-        upright: "Lập kế hoạch, quyết định, tầm nhìn xa, khám phá",
-        reversed: "Thiếu kế hoạch, sợ hãi, quyết định sai lầm",
-        meaning: "Thời gian để lập kế hoạch cho tương lai. Hãy mở rộng tầm nhìn và chuẩn bị cho hành trình mới.",
-        advice: "Đầu tư thời gian vào việc lập kế hoạch chi tiết trước khi hành động."
-    },
-    {
-        id: 24,
-        name: "Three of Wands",
-        namevi: "Ba Gậy",
-        symbol: "🚢",
-        suit: "Wands",
-        upright: "Mở rộng, tiến bộ, tầm nhìn xa, hợp tác",
-        reversed: "Thiếu tiến bộ, trì hoãn, kế hoạch thất bại",
-        meaning: "Những nỗ lực của bạn đang bắt đầu có kết quả. Hãy tiếp tục mở rộng và phát triển.",
-        advice: "Hãy kiên nhẫn và tiếp tục theo đuổi kế hoạch dài hạn của mình."
-    },
-    {
-        id: 25,
-        name: "Four of Wands",
-        namevi: "Bốn Gậy",
-        symbol: "🎉",
-        suit: "Wands",
-        upright: "Ăn mừng, hòa hợp, thành tựu, ổn định",
-        reversed: "Thiếu hòa hợp, trì hoãn kế hoạch, bất ổn",
-        meaning: "Thời gian để ăn mừng thành tựu và tận hưởng sự hòa hợp trong gia đình, công việc.",
-        advice: "Hãy dành thời gian ăn mừng và ghi nhận những thành tựu đã đạt được."
-    },
-    {
-        id: 26,
-        name: "Five of Wands",
-        namevi: "Năm Gậy",
-        symbol: "⚔️",
-        suit: "Wands",
-        upright: "Xung đột, cạnh tranh, thử thách, bất đồng",
-        reversed: "Tránh xung đột, hợp tác, giải quyết tranh chấp",
-        meaning: "Bạn đang đối mặt với cạnh tranh và xung đột. Hãy giữ bình tĩnh và tìm cách giải quyết.",
-        advice: "Tập trung vào mục tiêu chung thay vì cạnh tranh không cần thiết."
-    },
-    {
-        id: 27,
-        name: "Six of Wands",
-        namevi: "Sáu Gậy",
-        symbol: "🏆",
-        suit: "Wands",
-        upright: "Chiến thắng, thành công, công nhận, tự tin",
-        reversed: "Thất bại, thiếu công nhận, tự phụ",
-        meaning: "Chiến thắng và sự công nhận đang đến với bạn. Hãy tự hào về những gì đã đạt được.",
-        advice: "Tận hưởng thành công nhưng đừng quên khiêm tốn và tiếp tục phấn đấu."
-    },
-    {
-        id: 28,
-        name: "Seven of Wands",
-        namevi: "Bảy Gậy",
-        symbol: "🛡️",
-        suit: "Wands",
-        upright: "Bảo vệ, kiên trì, thách thức, đứng vững",
-        reversed: "Đầu hàng, thiếu tự tin, bị áp đảo",
-        meaning: "Bạn cần bảo vệ vị trí và thành tựu của mình. Hãy kiên trì và đứng vững trước thử thách.",
-        advice: "Đừng bỏ cuộc khi gặp khó khăn. Hãy kiên trì bảo vệ những gì thuộc về bạn."
-    },
-    {
-        id: 29,
-        name: "Eight of Wands",
-        namevi: "Tám Gậy",
-        symbol: "💨",
-        suit: "Wands",
-        upright: "Tốc độ, hành động nhanh, tin tức, tiến bộ",
-        reversed: "Chậm trễ, thiếu kiên nhẫn, vội vàng",
-        meaning: "Mọi thứ đang diễn ra rất nhanh. Hãy chuẩn bị cho những thay đổi và tin tức quan trọng.",
-        advice: "Hãy hành động nhanh chóng nhưng không vội vàng. Cơ hội không chờ đợi."
-    },
-    {
-        id: 30,
-        name: "Nine of Wands",
-        namevi: "Chín Gậy",
-        symbol: "🤕",
-        suit: "Wands",
-        upright: "Kiên trì, bền bỉ, gần đến đích, cảnh giác",
-        reversed: "Kiệt sức, bỏ cuộc, thiếu bền bỉ",
-        meaning: "Bạn đã trải qua nhiều thử thách và gần đến đích. Hãy kiên trì thêm một chút nữa.",
-        advice: "Đừng bỏ cuộc khi đã gần đến đích. Sự kiên trì sẽ được đền đáp."
-    },
-    {
-        id: 31,
-        name: "Ten of Wands",
-        namevi: "Mười Gậy",
-        symbol: "🎒",
-        suit: "Wands",
-        upright: "Gánh nặng, trách nhiệm, quá tải, hoàn thành",
-        reversed: "Giải thoát gánh nặng, ủy quyền, giảm áp lực",
-        meaning: "Bạn đang gánh vác quá nhiều trách nhiệm. Hãy học cách chia sẻ và ủy quyền.",
-        advice: "Đừng cố gắng làm tất cả một mình. Hãy tìm kiếm sự hỗ trợ từ người khác."
-    },
-    {
-        id: 32,
-        name: "Page of Wands",
-        namevi: "Cận Thần Gậy",
-        symbol: "👦",
-        suit: "Wands",
-        upright: "Nhiệt huyết, khám phá, tin tức tốt, học hỏi",
-        reversed: "Thiếu định hướng, không kiên trì, tin tức xấu",
-        meaning: "Một cơ hội học hỏi và khám phá mới đang xuất hiện. Hãy giữ tinh thần nhiệt huyết.",
-        advice: "Hãy mở lòng với những trải nghiệm mới và học hỏi từ mọi cơ hội."
-    },
-    {
-        id: 33,
-        name: "Knight of Wands",
-        namevi: "Hiệp Sĩ Gậy",
-        symbol: "🏇",
-        suit: "Wands",
-        upright: "Hành động, phiêu lưu, liều lĩnh, năng động",
-        reversed: "Liều lĩnh, thiếu kiên nhẫn, hành động thiếu suy nghĩ",
-        meaning: "Thời gian để hành động quyết liệt. Nhưng hãy cân nhắc kỹ trước khi quyết định.",
-        advice: "Hãy cân bằng giữa hành động nhanh chóng và suy nghĩ cẩn thận."
-    },
-    {
-        id: 34,
-        name: "Queen of Wands",
-        namevi: "Nữ Hoàng Gậy",
-        symbol: "👸",
-        suit: "Wands",
-        upright: "Tự tin, quyến rũ, quyết đoán, độc lập",
-        reversed: "Ghen tuông, ích kỷ, thiếu tự tin",
-        meaning: "Hãy thể hiện sự tự tin và quyến rũ tự nhiên của mình. Bạn có khả năng lãnh đạo.",
-        advice: "Tin tưởng vào bản thân và sử dụng sức mạnh cá nhân để đạt được mục tiêu."
-    },
-    {
-        id: 35,
-        name: "King of Wands",
-        namevi: "Vua Gậy",
-        symbol: "👑",
-        suit: "Wands",
-        upright: "Lãnh đạo, tầm nhìn, doanh nhân, thành công",
-        reversed: "Chuyên chế, thiếu tầm nhìn, lạm dụng quyền lực",
-        meaning: "Bạn có khả năng lãnh đạo và tầm nhìn xa. Hãy sử dụng quyền lực một cách khôn ngoan.",
-        advice: "Hãy lãnh đạo bằng gương mẫu và truyền cảm hứng cho người khác."
-    },
+// Sửa lại hàm shuffleCards
+function shuffleCards() {
+    // Đảm bảo tarotCards đã được khởi tạo
+    if (!tarotCards || tarotCards.length === 0) {
+        console.error('tarotCards chưa được khởi tạo!');
+        return;
+    }
+    
+    // Sử dụng thuật toán Fisher-Yates thay vì sort
+    shuffledCards = shuffleArray(tarotCards);
+    displayCards();
+    
+    // Thêm hiệu ứng xáo bài
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    shuffleBtn.textContent = '🔄 Đang xáo...';
+    shuffleBtn.disabled = true;
+    
+    setTimeout(() => {
+        shuffleBtn.textContent = '🔄 Xáo Bài';
+        shuffleBtn.disabled = false;
+    }, 1000);
+}
 
-    // Minor Arcana - Cups (Cốc) - 14 lá
-    {
-        id: 36,
-        name: "Ace of Cups",
-        namevi: "Át Cốc",
-        symbol: "💧",
-        suit: "Cups",
-        upright: "Tình yêu mới, cảm xúc, tâm linh, trực giác",
-        reversed: "Cảm xúc bị cản trở, tình yêu không được đáp lại",
-        meaning: "Một tình yêu hoặc cảm xúc mới đang bắt đầu. Hãy mở lòng đón nhận.",
-        advice: "Hãy tin tưởng vào cảm xúc và mở lòng với tình yêu."
-    },
-    {
-        id: 37,
-        name: "Two of Cups",
-        namevi: "Hai Cốc",
-        symbol: "💑",
-        suit: "Cups",
-        upright: "Tình yêu, đối tác, kết nối, hòa hợp",
-        reversed: "Chia ly, bất hòa, mất cân bằng trong mối quan hệ",
-        meaning: "Một mối quan hệ tình cảm sâu sắc đang phát triển. Sự hòa hợp và hiểu biết lẫn nhau.",
-        advice: "Hãy nuôi dưỡng mối quan hệ và tìm kiếm sự cân bằng với đối phương."
-    },
-    {
-        id: 38,
-        name: "Three of Cups",
-        namevi: "Ba Cốc",
-        symbol: "🥳",
-        suit: "Cups",
-        upright: "Tình bạn, ăn mừng, cộng đồng, vui vẻ",
-        reversed: "Cô lập, ghen tuông, xung đột trong nhóm",
-        meaning: "Thời gian vui vẻ với bạn bè và gia đình. Hãy tận hưởng những khoảnh khắc hạnh phúc.",
-        advice: "Hãy dành thời gian cho những người thân yêu và chia sẻ niềm vui."
-    },
-    {
-        id: 39,
-        name: "Four of Cups",
-        namevi: "Bốn Cốc",
-        symbol: "😑",
-        suit: "Cups",
-        upright: "Chán nản, thiếu động lực, bỏ lỡ cơ hội",
-        reversed: "Động lực mới, chấp nhận cơ hội, thức tỉnh",
-        meaning: "Bạn có thể đang cảm thấy chán nản và bỏ lỡ những cơ hội tốt xung quanh.",
-        advice: "Hãy mở mắt nhìn những cơ hội mới và thoát khỏi trạng thái thờ ơ."
-    },
-    {
-        id: 40,
-        name: "Five of Cups",
-        namevi: "Năm Cốc",
-        symbol: "😢",
-        suit: "Cups",
-        upright: "Mất mát, buồn bã, hối tiếc, thất vọng",
-        reversed: "Chấp nhận, tha thứ, tiến về phía trước",
-        meaning: "Bạn đang trải qua nỗi buồn và mất mát. Nhưng vẫn còn hy vọng phía trước.",
-        advice: "Hãy chấp nhận mất mát và tập trung vào những gì còn lại."
-    },
-    {
-        id: 41,
-        name: "Six of Cups",
-        namevi: "Sáu Cốc",
-        symbol: "🧸",
-        suit: "Cups",
-        upright: "Kỷ niệm, tuổi thơ, hoài niệm, quà tặng",
-        reversed: "Sống trong quá khứ, thiếu tiến bộ",
-        meaning: "Những kỷ niệm đẹp từ quá khứ đang trở lại. Có thể gặp lại người cũ.",
-        advice: "Hãy trân trọng kỷ niệm nhưng đừng sống mãi trong quá khứ."
-    },
-    {
-        id: 42,
-        name: "Seven of Cups",
-        namevi: "Bảy Cốc",
-        symbol: "🌈",
-        suit: "Cups",
-        upright: "Lựa chọn, ảo tưởng, ước mơ, nhầm lẫn",
-        reversed: "Quyết định, tập trung, thực tế",
-        meaning: "Bạn có nhiều lựa chọn nhưng không biết chọn gì. Hãy cẩn thận với những ảo tưởng.",
-        advice: "Hãy thực tế và tập trung vào những mục tiêu có thể đạt được."
-    },
-    {
-        id: 43,
-        name: "Eight of Cups",
-        namevi: "Tám Cốc",
-        symbol: "🚶",
-        suit: "Cups",
-        upright: "Rời bỏ, tìm kiếm, thất vọng, hành trình tâm linh",
-        reversed: "Sợ thay đổi, trốn tránh, không dám rời bỏ",
-        meaning: "Thời gian để rời bỏ những gì không còn phù hợp và tìm kiếm ý nghĩa mới.",
-        advice: "Đừng sợ rời bỏ những gì không mang lại hạnh phúc. Hãy tìm kiếm điều mới mẻ."
-    },
-    {
-        id: 44,
-        name: "Nine of Cups",
-        namevi: "Chín Cốc",
-        symbol: "😊",
-        suit: "Cups",
-        upright: "Hài lòng, thỏa mãn, ước mơ thành hiện thực",
-        reversed: "Không hài lòng, tham lam, ước mơ không thành",
-        meaning: "Ước mơ của bạn đang thành hiện thực. Thời gian của sự hài lòng và thỏa mãn.",
-        advice: "Hãy tận hưởng thành quả và biết ơn những gì đã có."
-    },
-    {
-        id: 45,
-        name: "Ten of Cups",
-        namevi: "Mười Cốc",
-        symbol: "👨‍👩‍👧‍👦",
-        suit: "Cups",
-        upright: "Hạnh phúc gia đình, hòa hợp, tình yêu vĩnh cửu",
-        reversed: "Bất hòa gia đình, giá trị sai lệch",
-        meaning: "Hạnh phúc và hòa hợp trong gia đình. Tình yêu và sự gắn kết bền chặt.",
-        advice: "Hãy trân trọng gia đình và những người thân yêu xung quanh."
-    },
-    {
-        id: 46,
-        name: "Page of Cups",
-        namevi: "Cận Thần Cốc",
-        symbol: "🧚",
-        suit: "Cups",
-        upright: "Tin tức tình cảm, sáng tạo, trực giác, học hỏi",
-        reversed: "Cảm xúc bất ổn, thiếu sáng tạo",
-        meaning: "Tin tức về tình cảm hoặc cơ hội sáng tạo mới đang đến. Hãy lắng nghe trực giác.",
-        advice: "Hãy mở lòng với cảm xúc và theo đuổi sự sáng tạo."
-    },
-    {
-        id: 47,
-        name: "Knight of Cups",
-        namevi: "Hiệp Sĩ Cốc",
-        symbol: "🎭",
-        suit: "Cups",
-        upright: "Lãng mạn, quyến rũ, theo đuổi ước mơ",
-        reversed: "Không thực tế, thay đổi thất thường",
-        meaning: "Một người lãng mạn hoặc cơ hội theo đuổi ước mơ đang xuất hiện.",
-        advice: "Hãy theo đuổi ước mơ nhưng giữ chân trên mặt đất."
-    },
-    {
-        id: 48,
-        name: "Queen of Cups",
-        namevi: "Nữ Hoàng Cốc",
-        symbol: "🧜‍♀️",
-        suit: "Cups",
-        upright: "Trực giác, từ bi, nuôi dưỡng, cảm xúc sâu sắc",
-        reversed: "Cảm xúc bất ổn, thiếu ranh giới",
-        meaning: "Hãy tin vào trực giác và sử dụng sự từ bi để giúp đỡ người khác.",
-        advice: "Lắng nghe trái tim và sử dụng trực giác để đưa ra quyết định."
-    },
-    {
-        id: 49,
-        name: "King of Cups",
-        namevi: "Vua Cốc",
-        symbol: "🌊",
-        suit: "Cups",
-        upright: "Cân bằng cảm xúc, từ bi, khôn ngoan, điềm tĩnh",
-        reversed: "Cảm xúc bất ổn, thao túng, thiếu kiểm soát",
-        meaning: "Hãy cân bằng giữa cảm xúc và lý trí. Sử dụng trí tuệ để hướng dẫn người khác.",
-        advice: "Giữ bình tĩnh trong mọi tình huống và sử dụng trí tuệ cảm xúc."
-    },
+function displayCards() {
+    const container = document.getElementById('cardsContainer');
+    if (!container) {
+        console.error('Không tìm thấy cardsContainer!');
+        return;
+    }
+    
+    container.innerHTML = '';
+    
+    // Hiển thị 7 lá bài ngẫu nhiên với hiệu ứng
+    for (let i = 0; i < 7; i++) {
+        const cardElement = createCardElement(i);
+        cardElement.style.opacity = '0';
+        cardElement.style.transform = 'translateY(20px)';
+        container.appendChild(cardElement);
+        
+        // Hiệu ứng xuất hiện từng lá
+        setTimeout(() => {
+            cardElement.style.transition = 'all 0.3s ease';
+            cardElement.style.opacity = '1';
+            cardElement.style.transform = 'translateY(0)';
+        }, i * 100);
+    }
+}
 
-    // Minor Arcana - Swords (Kiếm) - 14 lá
-    {
-        id: 50,
-        name: "Ace of Swords",
-        namevi: "Át Kiếm",
-        symbol: "⚔️",
-        suit: "Swords",
-        upright: "Ý tưởng mới, sự thật, rõ ràng, đột phá",
-        reversed: "Nhầm lẫn, thiếu rõ ràng, ý tưởng sai lầm",
-        meaning: "Một ý tưởng mới hoặc sự thật quan trọng đang được tiết lộ. Sự rõ ràng trong tư duy.",
-        advice: "Hãy nắm bắt ý tưởng mới và sử dụng sự rõ ràng trong tư duy để giải quyết vấn đề."
-    },
-    {
-        id: 51,
-        name: "Two of Swords",
-        namevi: "Hai Kiếm",
-        symbol: "🤔",
-        suit: "Swords",
-        upright: "Quyết định khó khăn, bế tắc, cân bằng",
-        reversed: "Quyết định, thông tin mới, kết thúc bế tắc",
-        meaning: "Bạn đang đối mặt với một quyết định khó khăn. Cần thêm thông tin để quyết định.",
-        advice: "Hãy tìm kiếm thêm thông tin và tin tưởng vào trực giác để đưa ra quyết định."
-    },
-    {
-        id: 52,
-        name: "Three of Swords",
-        namevi: "Ba Kiếm",
-        symbol: "💔",
-        suit: "Swords",
-        upright: "Đau khổ, chia ly, phản bội, buồn bã",
-        reversed: "Chữa lành, tha thứ, phục hồi",
-        meaning: "Bạn đang trải qua nỗi đau về mặt cảm xúc. Thời gian sẽ chữa lành vết thương.",
-        advice: "Hãy cho phép bản thân buồn bã và tìm kiếm sự hỗ trợ từ người khác."
-    },
-    {
-        id: 53,
-        name: "Four of Swords",
-        namevi: "Bốn Kiếm",
-        symbol: "😴",
-        suit: "Swords",
-        upright: "Nghỉ ngơi, thiền định, hồi phục, tạm dừng",
-        reversed: "Bất an, thiếu nghỉ ngơi, trở lại hoạt động",
-        meaning: "Thời gian để nghỉ ngơi và hồi phục. Hãy tạm dừng và suy ngẫm.",
-        advice: "Hãy dành thời gian nghỉ ngơi và thiền định để phục hồi năng lượng."
-    },
-    {
-        id: 54,
-        name: "Five of Swords",
-        namevi: "Năm Kiếm",
-        symbol: "🏴",
-        suit: "Swords",
-        upright: "Thất bại, xung đột, ích kỷ, chiến thắng rỗng tuếch",
-        reversed: "Tha thứ, hòa giải, học từ thất bại",
-        meaning: "Một cuộc xung đột đã kết thúc nhưng không ai thực sự thắng. Hãy học từ kinh nghiệm.",
-        advice: "Đôi khi thà thua cuộc còn hơn chiến thắng một cách không danh dự."
-    },
-    {
-        id: 55,
-        name: "Six of Swords",
-        namevi: "Sáu Kiếm",
-        symbol: "⛵",
-        suit: "Swords",
-        upright: "Chuyển đổi, hành trình, tiến bộ, rời bỏ",
-        reversed: "Kháng cự thay đổi, không thể tiến bộ",
-        meaning: "Bạn đang trong quá trình chuyển đổi từ khó khăn sang bình yên. Hành trình phía trước.",
-        advice: "Hãy kiên nhẫn trong quá trình chuyển đổi và tin rằng mọi thứ sẽ tốt hơn."
-    },
-    {
-        id: 56,
-        name: "Seven of Swords",
-        namevi: "Bảy Kiếm",
-        symbol: "🥷",
-        suit: "Swords",
-        upright: "Lừa dối, trốn tránh, chiến lược, bí mật",
-        reversed: "Thú nhận, trung thực, bị phát hiện",
-        meaning: "Có thể có sự lừa dối hoặc bạn đang cố gắng tránh một tình huống khó khăn.",
-        advice: "Hãy trung thực và đối mặt với vấn đề thay vì trốn tránh."
-    },
-    {
-        id: 57,
-        name: "Eight of Swords",
-        namevi: "Tám Kiếm",
-        symbol: "🔒",
-        suit: "Swords",
-        upright: "Bị giam cầm, hạn chế, nạn nhân, sợ hãi",
-        reversed: "Giải thoát, tự do, vượt qua giới hạn",
-        meaning: "Bạn cảm thấy bị giam cầm bởi hoàn cảnh, nhưng thực ra bạn có thể tự giải thoát.",
-        advice: "Hãy nhận ra rằng nhiều giới hạn chỉ tồn tại trong tâm trí bạn."
-    },
-    {
-        id: 58,
-        name: "Nine of Swords",
-        namevi: "Chín Kiếm",
-        symbol: "😰",
-        suit: "Swords",
-        upright: "Lo lắng, ác mộng, căng thẳng, sợ hãi",
-        reversed: "Phục hồi, hy vọng, vượt qua lo lắng",
-        meaning: "Bạn đang trải qua thời kỳ lo lắng và căng thẳng. Hãy tìm kiếm sự hỗ trợ.",
-        advice: "Đừng để lo lắng chi phối cuộc sống. Hãy tìm kiếm sự giúp đỡ khi cần thiết."
-    },
-    {
-        id: 59,
-        name: "Ten of Swords",
-        namevi: "Mười Kiếm",
-        symbol: "🗡️",
-        suit: "Swords",
-        upright: "Kết thúc, thất bại, phản bội, đáy vực",
-        reversed: "Phục hồi, khởi đầu mới, vượt qua khó khăn",
-        meaning: "Một giai đoạn khó khăn đã kết thúc. Mặc dù đau đớn nhưng đây là cơ hội để bắt đầu lại.",
-        advice: "Hãy chấp nhận kết thúc và chuẩn bị cho khởi đầu mới."
-    },
-    {
-        id: 60,
-        name: "Page of Swords",
-        namevi: "Cận Thần Kiếm",
-        symbol: "📚",
-        suit: "Swords",
-        upright: "Tò mò, học hỏi, tin tức, ý tưởng mới",
-        reversed: "Tin đồn, thiếu tập trung, ý tưởng chưa chín chắn",
-        meaning: "Tin tức mới hoặc ý tưởng đang đến. Hãy giữ tinh thần tò mò và học hỏi.",
-        advice: "Hãy mở rộng kiến thức và không ngừng học hỏi những điều mới."
-    },
-    {
-        id: 61,
-        name: "Knight of Swords",
-        namevi: "Hiệp Sĩ Kiếm",
-        symbol: "🏃‍♂️",
-        suit: "Swords",
-        upright: "Hành động nhanh, quyết đoán, liều lĩnh, trực tiếp",
-        reversed: "Liều lĩnh, thiếu suy nghĩ, hung hăng",
-        meaning: "Thời gian để hành động nhanh chóng và quyết đoán. Nhưng hãy cẩn thận đừng quá vội vàng.",
-        advice: "Hãy cân bằng giữa hành động nhanh chóng và suy nghĩ cẩn thận."
+function createCardElement(index) {
+    // Kiểm tra index hợp lệ
+    if (!shuffledCards[index]) {
+        console.error(`Không tìm thấy card tại index ${index}`);
+        return document.createElement('div');
+    }
+    
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute('data-index', index);
+    
+    card.innerHTML = `
+        <div class="card-inner">
+            <div class="card-front">
+                🔮
+            </div>
+            <div class="card-back">
+                <div class="card-symbol">${shuffledCards[index].symbol}</div>
+                <div class="card-name">${shuffledCards[index].namevi}</div>
+            </div>
+        </div>
+    `;
+    
+    card.addEventListener('click', () => selectCard(index));
+    
+    return card;
+}
+
+// Sửa lại hàm khởi tạo
+function initializeCards() {
+    // Kiểm tra dữ liệu trước khi xáo
+    if (!tarotCards || tarotCards.length === 0) {
+        console.error('Dữ liệu tarotCards không hợp lệ!');
+        return;
+    }
+    
+    console.log(`Đã tải ${tarotCards.length} lá bài`);
+    shuffleCards();
+}
+
+// Thêm xử lý lỗi cho các sự kiện
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        initializeCards();
+        
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const newReadingBtn = document.getElementById('newReadingBtn');
+        
+        if (shuffleBtn) {
+            shuffleBtn.addEventListener('click', shuffleCards);
+        }
+        
+        if (newReadingBtn) {
+            newReadingBtn.addEventListener('click', newReading);
+        }
+    } catch (error) {
+        console.error('Lỗi khởi tạo:', error);
+    }
+});
+
+// Thêm hàm debug để kiểm tra
+function debugCards() {
+    console.log('tarotCards:', tarotCards?.length || 'undefined');
+    console.log('shuffledCards:', shuffledCards?.length || 'undefined');
+    console.log('Container:', document.getElementById('cardsContainer'));
+}
